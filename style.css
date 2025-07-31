@@ -1,0 +1,7 @@
+body {
+background: radial-gradient(ellipse, red,green);
+background-repeat: no-repeat;
+height: 100%;
+margin: 0;
+background-attachment: fixed;
+}
