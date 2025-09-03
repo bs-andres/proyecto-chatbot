@@ -1,0 +1,161 @@
+.container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 40px;   /* antes 100px, ahora más pegado a los bordes */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;   /* ocupa todo el ancho */
+    max-width: 100% !important; /* elimina límite de Bootstrap */
+    min-height: 80px;
+    z-index: 1050;
+}
+body {
+    background: radial-gradient(ellipse, #212fe8,#41ab92);
+    background-repeat: no-repeat;  
+    height: 100%;
+    margin: 0;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+.chat-container {
+    max-width: 1200px;
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 20px; 
+}
+
+/* diseño burbuja */
+.burbuja {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+/* burbuja usuario */
+.user {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    text-align: right;
+    margin-left: auto;
+}
+
+/* burbuja IA */
+.IA {
+    background-color: #e2e3e5;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.chat-log {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botones de sesión */
+.btn-inicio,
+.btn-cerrar {
+    background-color: #8c52ff !important;
+    color: white !important;
+    border: none;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 1 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-inicio:hover,
+.btn-cerrar:hover {
+    background-color: #6e3fcf !important;
+    transform: translateY(-2px);
+}
+
+.input-barra-derecha {
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    min-height: 40px;
+    max-height: 150px;
+    padding: 10px 15px;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid #0a8d8f;
+    outline: none;
+    background-color: #11c0c5;
+    color: white;
+    box-shadow: 0 2px 6px rgba(17, 192, 197, 0.7);
+    resize: none;
+    transition: border-color 0.3s ease;
+    border-radius: 20px;
+}
+
+.input-barra-derecha::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.input-barra-derecha:focus {
+    border-color: #0a8d8f;
+    box-shadow: 0 2px 8px rgba(10, 141, 143, 0.9);
+}
+
+.offcanvas {
+    background-color: rgba(107, 205, 208, 0.65) !important; /* más transparente */
+    backdrop-filter: blur(100px); /* efecto vidrio */
+}
+
+.offcanvas-header,
+.offcanvas-body {
+    background: transparent !important;
+}
+
+.offcanvas .btn-normal {
+    background: linear-gradient(135deg, #11c0c5, #0a8d8f); /* degradado turquesa */
+    color: white !important;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.offcanvas .btn-normal:hover {
+    background: linear-gradient(135deg, #0fdfe5, #0a8d8f);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.offcanvas .btn-normal:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.offcanvas .btn-mapa {
+    background: linear-gradient(135deg, #9b59b6, #6c3483); /* degradado violeta */
+    color: white !important;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.offcanvas .btn-mapa:hover {
+    background: linear-gradient(135deg, #b07acc, #8e44ad);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.offcanvas .btn-mapa:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

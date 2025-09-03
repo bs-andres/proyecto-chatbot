@@ -1,0 +1,21 @@
+<?php
+include("conexion.php");
+
+if (isset($_GET['term'])) {//obtiene la variable que escribe el usuario
+    $busqueda = "%" . $_GET['term'] . "%";//busca algo parecido a lo obtenido
+    $stmt = $connPHP->prepare("SELECT DISTINCT pregunta FROM consultas WHERE pregunta LIKE ? LIMIT 5");//selecciona las preguntas hasta 5
+    $stmt->bind_param("s", $busqueda);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $sugerencias = [];
+    while ($fila = $resultado->fetch_assoc()) {
+        $sugerencias[] = $fila['pregunta'];//array 
+    }
+
+    echo json_encode($sugerencias);//muestra las sugerencias
+
+    $stmt->close();
+    $connPHP->close();
+}
+?>
