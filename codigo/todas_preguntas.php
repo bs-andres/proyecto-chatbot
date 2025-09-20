@@ -2,7 +2,7 @@
 include("conexion.php");
 
 //sentencia sql para obtener todas las preguntas y respuestas
-$sql = "SELECT id_consulta, pregunta, respuesta FROM consultas WHERE preg_contestada = true ORDER BY pregunta ASC ";//sql que agarra id y su pregunta donde la pregunta no haya sido contestada
+$sql = "SELECT id_consulta, pregunta, respuesta FROM consultas WHERE preg_contestada = true ORDER BY pregunta ASC ";
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -13,23 +13,40 @@ $resultado = $connPHP->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/diseños.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>todas las preguntas</title>
     <style>
+        body {
+            background-color: #222;
+        }
         table { 
             width: 80%;
-            margin: auto;
+            max-width: 900px;
+            margin: 20px auto;
             border-collapse: collapse;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 6px 20px rgba(32, 221, 250, 0.5);
         }
         th, td {
-            padding: 12px;
+            padding: 10px;
             text-align: left;
+            word-wrap: break-word;
         }
         th {
             background-color: #007BFF;
             color: white;
+        }
+        .btn-inicio {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-inicio:hover {
+            background-color: #0056b3;
         }
     </style>
     <a href="chat.php">
@@ -64,7 +81,7 @@ $resultado = $connPHP->query($sql);
             echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='2'>no hay preguntas.</td></tr>";//si no hay nada muestra mensaje
+            echo "<tr><td colspan='3'>no hay preguntas.</td></tr>";
         }
         $connPHP->close();
         ?>
@@ -79,14 +96,12 @@ $resultado = $connPHP->query($sql);
                     const celda = this.parentElement;
                     const resumen = celda.querySelector('.resumen');
                     const completa = celda.querySelector('.completa');
-                    //nota corta
-                    if (completa.style.display === 'none') {
+                    if (completa.style.display === 'none') {//nota larga
                         completa.style.display = 'inline';
                         resumen.style.display = 'none';
                         this.textContent = 'Ver menos';
                     } else {
-                        //nota larga
-                        completa.style.display = 'none';
+                        completa.style.display = 'none';//nota corta
                         resumen.style.display = 'inline';
                         this.textContent = 'Ver más';
                     }

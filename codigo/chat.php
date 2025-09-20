@@ -1,6 +1,8 @@
 <?php
 session_start();
+$pregunta = isset($_GET['pregunta']) ? htmlspecialchars($_GET['pregunta']) : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,8 +28,14 @@ session_start();
         <div style="margin-left:auto;">
             <?php if (isset($_SESSION['usuario'])): ?><!--  si inicio sesion -->
                 <a href="logout.php" class="btn-cerrar">Cerrar Sesión</a>
+                <a href="refrescar.php" class="btn" title="Refrescar chat" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px; mb-2">
+                    <img src="../otros/refrescar.png"style="height:24px;width: 24px;">
+                </a>
             <?php else: ?>
                 <a href="login.php" class="btn-inicio">Iniciar Sesión</a>
+                <a href="refrescar.php" class="btn" title="Refrescar chat" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px; mb-2">
+                    <img src="../otros/refrescar.png"style="height:24px;width: 24px;">
+                </a>
             <?php endif; ?>
         </div>
     </div>
@@ -39,9 +47,10 @@ session_start();
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <?php if (isset($_SESSION['usuario'])): ?><!--  si inicio sesion -->
-                <span style="color:black; margin-right:10px;">Bienvenido <?php echo $_SESSION['usuario']; ?></span><!--  muestra el nombre -->
+            <?php if (isset($_SESSION['usuario'])): ?>
+                    <span>Bienvenido <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong></span>
             <?php endif; ?>
+
             <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'admin'): ?><!--  si es el admin tiene botones especiales -->
                 <a href="preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas sin responder</a><br>
                 <a href="todas_preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">todas las preguntas</a><br>
@@ -65,8 +74,11 @@ session_start();
     <div class="chat-container">
         <div class="chat-log" id="chat-log"></div><!--  el chat -->
 
-        <form id="formulario" class="d-flex justify-content-end mt-3"><!--  barra donde se pregunta -->
-            <input type="text" id="pregunta" class="input-barra-derecha" placeholder="Escribí tu pregunta..." autocomplete="off">
+        <form id="formulario" class="d-flex justify-content-end mt-3" action="guardar_mensaje.php" method="POST">
+            <input type="text" id="pregunta" class="input-barra-derecha" name="mensaje" placeholder="Escribe tu mensaje..." value="<?php echo $pregunta; ?>">
+            <button type="submit" class="btn" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px; mb-2">
+                <img src="../otros/enviar.png"style="height:24px;width: 24px;">
+            </button>
         </form>
     </div>
     <script src="js/java.js"></script>

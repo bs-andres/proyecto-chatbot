@@ -11,6 +11,7 @@ $id_consulta = $_GET['id_consulta'];//variable con id
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responder consulta</title>
 </head>
 <body>

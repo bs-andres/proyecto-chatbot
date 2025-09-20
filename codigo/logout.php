@@ -1,9 +1,7 @@
 <?php
 session_start();
+session_unset();    // Limpia todas las variables de sesión
+session_destroy();  // Destruye la sesión
 
-// Solo borramos la variable 'usuario' para "cerrar sesión"
-unset($_SESSION['usuario']);
-
-// Redirigimos al chat
-header("Location: chat.php");
-exit();
+header("Location: login.php"); // O donde quieras redirigir
+exit;

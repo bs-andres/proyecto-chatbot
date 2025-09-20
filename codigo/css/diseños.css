@@ -2,28 +2,33 @@
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 20px 40px;   /* antes 100px, ahora más pegado a los bordes */
+    padding: 20px 40px;
+    /* antes 100px, ahora más pegado a los bordes */
     position: fixed;
     top: 0;
     left: 0;
-    width: 100% !important;   /* ocupa todo el ancho */
-    max-width: 100% !important; /* elimina límite de Bootstrap */
+    width: 100% !important;
+    /* ocupa todo el ancho */
+    max-width: 100% !important;
+    /* elimina límite de Bootstrap */
     min-height: 80px;
     z-index: 1050;
 }
+
 body {
-    background: radial-gradient(ellipse, #212fe8,#41ab92);
-    background-repeat: no-repeat;  
+    background: radial-gradient(ellipse, #212fe8, #41ab92);
+    background-repeat: no-repeat;
     height: 100%;
     margin: 0;
     background-attachment: fixed;
     font-family: Arial, sans-serif;
 }
+
 .chat-container {
     max-width: 1200px;
     margin: 10px auto;
     border-radius: 10px;
-    padding: 20px; 
+    padding: 20px;
 }
 
 /* diseño burbuja */
@@ -53,6 +58,7 @@ body {
 .chat-log {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 /* Botones de sesión */
@@ -77,7 +83,6 @@ body {
     background-color: #6e3fcf !important;
     transform: translateY(-2px);
 }
-
 .input-barra-derecha {
     bottom: 20px;
     right: 20px;
@@ -107,8 +112,10 @@ body {
 }
 
 .offcanvas {
-    background-color: rgba(107, 205, 208, 0.65) !important; /* más transparente */
-    backdrop-filter: blur(100px); /* efecto vidrio */
+    background-color: rgba(107, 205, 208, 0.65) !important;
+    /* más transparente */
+    backdrop-filter: blur(100px);
+    /* efecto vidrio */
 }
 
 .offcanvas-header,
@@ -117,7 +124,8 @@ body {
 }
 
 .offcanvas .btn-normal {
-    background: linear-gradient(135deg, #11c0c5, #0a8d8f); /* degradado turquesa */
+    background: linear-gradient(135deg, #11c0c5, #0a8d8f);
+    /* degradado turquesa */
     color: white !important;
     border: none;
     border-radius: 12px;
@@ -139,7 +147,8 @@ body {
 }
 
 .offcanvas .btn-mapa {
-    background: linear-gradient(135deg, #9b59b6, #6c3483); /* degradado violeta */
+    background: linear-gradient(135deg, #9b59b6, #6c3483);
+    /* degradado violeta */
     color: white !important;
     border: none;
     border-radius: 12px;

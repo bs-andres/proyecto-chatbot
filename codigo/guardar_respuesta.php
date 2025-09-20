@@ -10,7 +10,7 @@ if ($id_consulta > 0 && !empty($respuesta)) {
     $stmt->bind_param("si", $respuesta, $id_consulta);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Respuesta guardada correctamente'); window.location.href='preguntas.php';</script>";//mustra mensaje y redirije si sale bien
+        echo "<script>window.location.href='preguntas.php';</script>";//redirije si sale bien
     } else {
         echo "Error al guardar la respuesta.";//mustra mensaje si no
     }

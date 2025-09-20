@@ -1,27 +1,27 @@
 <?php
 include("conexion.php");
 
-// Inicializamos variables
+//variables para preg y resp
 $pregunta = "";
 $respuesta = "";
 
-// Verificamos si se envió el formulario
+//si llego el archivo con post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id_consulta'])) {
-        $id = intval($_POST['id_consulta']);
+    if (isset($_POST['id_consulta'])) {//si llego la consulta
+        $id = ($_POST['id_consulta']);//variable con id
 
-        if (isset($_POST["respuesta"])) {
-            $nueva_respuesta = $_POST["respuesta"];
-            $sql_update = "UPDATE consultas SET respuesta = ?, preg_contestada = true WHERE id_consulta = ?";
+        if (isset($_POST["respuesta"])) {//si recibio respuesta
+            $nueva_respuesta = $_POST["respuesta"];//variable con respuesta
+            $sql_update = "UPDATE consultas SET respuesta = ?, preg_contestada = true WHERE id_consulta = ?";//actualiza la respuesta
             $stmt = $connPHP->prepare($sql_update);
             $stmt->bind_param("si", $nueva_respuesta, $id);
             $stmt->execute();
-            echo "<script>alert('Respuesta actualizada correctamente'); window.location.href='todas_preguntas.php';</script>";
+            echo "<script>window.location.href='todas_preguntas.php';</script>";//mensaje y redireccinamiento
             exit;
         }
 
-        // Obtener datos actuales (para mostrar en el formulario en caso de edición)
-        $sql = "SELECT pregunta, respuesta FROM consultas WHERE id_consulta = ?";
+        //muestra la respuesta a modificar
+        $sql = "SELECT respuesta FROM consultas WHERE id_consulta = ?";
         $stmt = $connPHP->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultado->num_rows > 0) {
             $fila = $resultado->fetch_assoc();
-            $pregunta = $fila["pregunta"];
             $respuesta = $fila["respuesta"];
         } else {
             echo "Consulta no encontrada.";
@@ -41,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } elseif (isset($_GET['id_consulta'])) {
     // Si se accede por primera vez vía GET, mostramos el formulario
-    $id = intval($_GET['id_consulta']);
-    $sql = "SELECT pregunta, respuesta FROM consultas WHERE id_consulta = ?";
+    $id = ($_GET['id_consulta']);
+    $sql = "SELECT respuesta FROM consultas WHERE id_consulta = ?";
     $stmt = $connPHP->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -50,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows > 0) {
         $fila = $resultado->fetch_assoc();
-        $pregunta = $fila["pregunta"];
         $respuesta = $fila["respuesta"];
     } else {
         echo "Consulta no encontrada.";
@@ -70,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Modificar respuesta</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         textarea {
             width: 100%;

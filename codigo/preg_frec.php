@@ -1,8 +1,9 @@
 <?php
+session_start();
 include("conexion.php");
 
 // Consulta para obtener las 7 preguntas con mayor contador
-$sql = "SELECT pregunta FROM consultas WHERE preg_contestada = true ORDER BY contador DESC LIMIT 7";
+$sql = "SELECT id_consulta, pregunta FROM consultas WHERE preg_contestada = true ORDER BY contador DESC LIMIT 7";
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -13,6 +14,7 @@ $resultado = $connPHP->query($sql);
     <title>Preguntas frecuentes</title>
     <link rel="stylesheet" href="css/diseños.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         table { 
@@ -52,7 +54,9 @@ $resultado = $connPHP->query($sql);
                         $preguntaJS = htmlspecialchars($fila['pregunta'], ENT_QUOTES);
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($fila['pregunta']) . "</td>";
-                        echo "<td><button class='btn-inicio' data-pregunta=\"" . $preguntaJS . "\">Consultar</button></td>";
+                        echo "<td>
+                            <a href='chat.php?pregunta=" . urlencode($fila['pregunta']) . "' class='btn-inicio'>Consultar</a>
+                        </td>";
                         echo "</tr>";
                     }
                 } else {
@@ -61,22 +65,6 @@ $resultado = $connPHP->query($sql);
                 ?>
             </tbody>
         </table>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const botones = document.querySelectorAll(".btn-inicio");
-
-        botones.forEach(boton => {
-            boton.addEventListener("click", function() {
-                const pregunta = this.getAttribute("data-pregunta");
-
-                // Guarda la pregunta en localStorage y redirige al chat
-                localStorage.setItem("preguntaAuto", pregunta);
-                window.location.href = "chat.php";
-            });
-        });
-    });
-    </script>
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
