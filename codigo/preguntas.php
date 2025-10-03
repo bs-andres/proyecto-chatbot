@@ -2,7 +2,7 @@
 include("conexion.php");
 
 //sentencia sql para obtener las preguntas no contestadas
-$sql = "SELECT id_consulta, pregunta FROM consultas WHERE preg_contestada = FALSE";//sql que agarra id y su pregunta donde la pregunta no haya sido contestada
+$sql = "SELECT id_consulta, titulo FROM consultas WHERE preg_contestada = FALSE";//sql que agarra id y su pregunta donde la pregunta no haya sido contestada
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -11,7 +11,7 @@ $resultado = $connPHP->query($sql);
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/diseños.css">
+    <link rel="stylesheet" href="css/diseño.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preguntas sin responder</title>
     <style>
@@ -73,7 +73,7 @@ $resultado = $connPHP->query($sql);
         if ($resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . htmlspecialchars($fila["pregunta"]) . "</td>";
+                echo "<td>" . ($fila["titulo"]) . "</td>";
                 echo "<td>
                     <a href='responder.php?id_consulta=" . $fila["id_consulta"] . "'>
                         <button type='button' class='btn-inicio'>Responder</button>

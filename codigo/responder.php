@@ -18,7 +18,7 @@ $id_consulta = $_GET['id_consulta'];//variable con id
     <div class="login-container">
         <h2>Responder pregunta</h2>
         <form method="POST" action="guardar_respuesta.php">
-            <input type="hidden" name="id_consulta" value="<?php echo htmlspecialchars($id_consulta); ?>"><!-- id -->
+            <input type="hidden" name="id_consulta" value="<?php echo ($id_consulta); ?>"><!-- id -->
             <input type="text"name="respuesta" required></input><br><!-- input para la respuesta -->
             <button type="submit" class="btn-inicio">Guardar respuesta</button>
             <button type="button" class="btn-inicio" onclick="window.location.href='preguntas.php'">Volver</button>

@@ -3,14 +3,11 @@
     align-items: center !important;
     justify-content: space-between !important;
     padding: 20px 40px;
-    /* antes 100px, ahora más pegado a los bordes */
     position: fixed;
     top: 0;
     left: 0;
     width: 100% !important;
-    /* ocupa todo el ancho */
     max-width: 100% !important;
-    /* elimina límite de Bootstrap */
     min-height: 80px;
     z-index: 1050;
 }
@@ -29,6 +26,8 @@ body {
     margin: 10px auto;
     border-radius: 10px;
     padding: 20px;
+    padding-bottom: 120px; /* Espacio para la barra fija */
+    scroll-behavior: smooth;
 }
 
 /* diseño burbuja */
@@ -59,6 +58,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 /* Botones de sesión */
@@ -83,9 +83,23 @@ body {
     background-color: #6e3fcf !important;
     transform: translateY(-2px);
 }
-.input-barra-derecha {
+
+/* Contenedor del formulario fijo */
+#formulario {
+    position: fixed;
     bottom: 20px;
     right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(17, 192, 197, 0.1);
+    padding: 10px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.input-barra-derecha {
     width: 350px;
     min-height: 40px;
     max-height: 150px;
@@ -98,7 +112,7 @@ body {
     color: white;
     box-shadow: 0 2px 6px rgba(17, 192, 197, 0.7);
     resize: none;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     border-radius: 20px;
 }
 
@@ -111,6 +125,12 @@ body {
     box-shadow: 0 2px 8px rgba(10, 141, 143, 0.9);
 }
 
+/* Botón de enviar */
+#formulario .btn {
+    background-color: rgb(64, 224, 208);
+    border-radius: 15px;
+    border: none;
+}
 .offcanvas {
     background-color: rgba(107, 205, 208, 0.65) !important;
     /* más transparente */
@@ -145,7 +165,6 @@ body {
     transform: translateY(1px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
 .offcanvas .btn-mapa {
     background: linear-gradient(135deg, #9b59b6, #6c3483);
     /* degradado violeta */

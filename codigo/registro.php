@@ -5,8 +5,8 @@ session_start();
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST['nombre'];
-    $clave = $_POST['clave'];
+    $nombre = trim($_POST['nombre']);
+    $clave = trim($_POST['clave']);
 
     if (empty($nombre) || empty($clave)) {
         $error = "Todos los campos son obligatorios.";
@@ -30,10 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ss", $nombre, $hash);
 
             if ($stmt->execute()) {
-                $_SESSION['id_usuario'] = $stmt->insert_id;
-                $_SESSION['nombre'] = $nombre;
+                // Guardar sesión usando las mismas claves que login.php
+                $_SESSION['id_usuario'] = $connPHP->insert_id;
+                $_SESSION['usuario']    = $nombre;
 
-                header("Location: login.php");
+                // Ir directo al chat ya logueado
+                header("Location: chat.php");
                 exit();
             } else {
                 $error = "Error al registrar usuario: " . $stmt->error;

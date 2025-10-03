@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(mensaje => {
                     const burbujaUser = document.createElement("div"); //crea burbuja del usuario
                     burbujaUser.className = "burbuja user"; //clase css para la burbuja
-                    burbujaUser.textContent = mensaje.pregunta; //inserta la pregunta
+                    burbujaUser.innerHTML = mensaje.pregunta; //inserta la pregunta
 
                     const burbujaIA = document.createElement("div");
                     burbujaIA.className = "burbuja IA";
-                    burbujaIA.textContent = mensaje.respuesta;
+                    burbujaIA.innerHTML = mensaje.respuesta;
 
                     chatLog.appendChild(burbujaUser); // Agrega la burbuja del usuario al chat
                     chatLog.appendChild(burbujaIA); // Agrega la burbuja de la IA al chat
@@ -76,9 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     chatLog.append(`<div class="burbuja IA">${respuesta}</div>`);
                 }
             });
-
             $("#pregunta").val(""); // Limpia el campo de entrada
         });
-
     });
 });
+function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+      }

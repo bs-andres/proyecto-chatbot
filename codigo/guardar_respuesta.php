@@ -1,8 +1,8 @@
 <?php
 include("conexion.php");
 
-$id_consulta = $_POST['id_consulta'] ?? 0;//recibo del post
-$respuesta = $_POST['respuesta'] ?? '';
+$id_consulta = $_POST['id_consulta'];//recibo del post
+$respuesta = $_POST['respuesta'];
 
 if ($id_consulta > 0 && !empty($respuesta)) {
     //se guarda la respuesta en la tabla

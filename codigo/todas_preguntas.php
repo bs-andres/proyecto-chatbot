@@ -2,7 +2,7 @@
 include("conexion.php");
 
 //sentencia sql para obtener todas las preguntas y respuestas
-$sql = "SELECT id_consulta, pregunta, respuesta FROM consultas WHERE preg_contestada = true ORDER BY pregunta ASC ";
+$sql = "SELECT id_consulta, titulo, respuesta FROM consultas WHERE preg_contestada = true ORDER BY titulo ASC ";
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -12,7 +12,7 @@ $resultado = $connPHP->query($sql);
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/diseños.css">
+    <link rel="stylesheet" href="css/diseño.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>todas las preguntas</title>
     <style>
@@ -65,9 +65,9 @@ $resultado = $connPHP->query($sql);
         if ($resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . htmlspecialchars($fila["pregunta"]) . "</td>";
-                $respuestaCompleta = htmlspecialchars($fila["respuesta"]);
-                $resumen = htmlspecialchars(mb_strimwidth($fila["respuesta"], 0, 80, "..."));
+                echo "<td>" . ($fila["titulo"]) . "</td>";
+                $respuestaCompleta = ($fila["respuesta"]);
+                $resumen = (mb_strimwidth($fila["respuesta"], 0, 80, "..."));
                 echo "<td>
                         <span class='resumen'>$resumen</span>
                         <span class='completa' style='display:none;'>$respuestaCompleta</span>

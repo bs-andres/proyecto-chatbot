@@ -36,15 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
                 $stmt_historial->close();
             }
         } else {
-            echo "Al parecer aún no tengo una respuesta para <strong>" . ($pregunta) . "</strong>, xd<br>el menu que tenemos es: <br>1.orientaciones <br>2.ubicaciones <br>3.datos.";
+            echo "Lamentablemente aún no tengo una respuesta para <strong>" . ($pregunta) . "</strong>.<br>El menu que tenemos es: <br>2🔹Orientaciones. <br>3🔹Ubicaciones. <br>4🔹Datos.";
         }
     } else {
         // Insertar nueva pregunta sin respuesta
-        $stmt_insert = $connPHP->prepare("INSERT INTO consultas (pregunta, respuesta, contador, preg_contestada) VALUES (?, '', 1, false)");
-        $stmt_insert->bind_param("s", $pregunta);
+        $stmt_insert = $connPHP->prepare("INSERT INTO consultas (pregunta, titulo, respuesta, contador, preg_contestada) VALUES (?, ?, '', 1, false)");
+        $stmt_insert->bind_param("ss", $pregunta, $pregunta);
 
         if ($stmt_insert->execute()) {
-            echo "¡Gracias por tu pregunta! Por ahora no tengo una respuesta para <strong>" . ($pregunta) . "</strong>,entonces, el menu que te ofrecemos es 1.orientaciones, 2.ubicaciones, 3.datos.";
+            echo "¡Gracias por tu consulta! Por ahora no tengo una respuesta para <strong>" . ($pregunta) . "</strong><br>El menu que te ofrecemos es: <br>2🔹Orientaciones. <br>3🔹Ubicaciones. <br>4🔹Datos.";
         } else {
             echo "Error al guardar la pregunta.";
         }

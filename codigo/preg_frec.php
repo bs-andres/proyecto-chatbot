@@ -3,7 +3,7 @@ session_start();
 include("conexion.php");
 
 // Consulta para obtener las 7 preguntas con mayor contador
-$sql = "SELECT id_consulta, pregunta FROM consultas WHERE preg_contestada = true ORDER BY contador DESC LIMIT 7";
+$sql = "SELECT id_consulta, titulo, pregunta FROM consultas WHERE preg_contestada = true ORDER BY contador DESC LIMIT 7";
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -12,7 +12,7 @@ $resultado = $connPHP->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Preguntas frecuentes</title>
-    <link rel="stylesheet" href="css/diseños.css">
+    <link rel="stylesheet" href="css/diseño.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,11 +51,11 @@ $resultado = $connPHP->query($sql);
                 <?php
                 if ($resultado->num_rows > 0) {
                     while ($fila = $resultado->fetch_assoc()) {
-                        $preguntaJS = htmlspecialchars($fila['pregunta'], ENT_QUOTES);
+                        $pregunta = ($fila['titulo']);
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($fila['pregunta']) . "</td>";
+                        echo "<td>" . ($fila['titulo']) . "</td>";
                         echo "<td>
-                            <a href='chat.php?pregunta=" . urlencode($fila['pregunta']) . "' class='btn-inicio'>Consultar</a>
+                            <a href='chat.php?titulo=" . urlencode($fila['pregunta']) . "' class='btn-inicio'>Consultar</a>
                         </td>";
                         echo "</tr>";
                     }

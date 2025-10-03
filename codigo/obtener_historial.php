@@ -25,8 +25,8 @@ $mensajes = [];//array para mensajes
 
 while ($fila = $resultado->fetch_assoc()) {//while de la variable resultado
     $mensajes[] = [//llena el array con preguntas y respuestas
-        'pregunta' => htmlspecialchars($fila['pregunta']),
-        'respuesta' => htmlspecialchars($fila['respuesta'])
+        'pregunta' => ($fila['pregunta']),
+        'respuesta' => ($fila['respuesta'])
     ];
 }
 
