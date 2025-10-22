@@ -6,12 +6,12 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = trim($_POST['nombre']);
-    $clave = trim($_POST['clave']);
+    $clave  = trim($_POST['clave']);
 
     if (empty($nombre) || empty($clave)) {
         $error = "Todos los campos son obligatorios.";
     } else {
-        // Verificar si el nombre ya existe
+        //verifica si el nombre ya existe
         $check_sql = "SELECT id_usuario FROM usuarios WHERE nombre = ?";
         $stmt = $connPHP->prepare($check_sql);
         $stmt->bind_param("s", $nombre);
@@ -23,18 +23,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $stmt->close();
 
-            // Insertar nuevo usuario
+            //inserta nuevo usuario
             $hash = password_hash($clave, PASSWORD_DEFAULT);
             $insert_sql = "INSERT INTO usuarios (nombre, contraseña) VALUES (?, ?)";
             $stmt = $connPHP->prepare($insert_sql);
             $stmt->bind_param("ss", $nombre, $hash);
 
             if ($stmt->execute()) {
-                // Guardar sesión usando las mismas claves que login.php
-                $_SESSION['id_usuario'] = $connPHP->insert_id;
+                //Guardar la sesión
+                $_SESSION['id_usuario'] = $connPHP->insert_id;//variables de sesion
                 $_SESSION['usuario']    = $nombre;
+                $id_usuario = $_SESSION['id_usuario'];
+                $id_consulta = 1;//mensaje de bienvenida
 
-                // Ir directo al chat ya logueado
+                //inserta mensaje inicial en el historial
+                $stmt_historial = $connPHP->prepare("INSERT INTO historial (id_usuario, id_consulta) VALUES (?, ?)");//inserta en el historial
+                $stmt_historial->bind_param("ii", $id_usuario, $id_consulta);
+                $stmt_historial->execute();
+                $stmt_historial->close();
+
+                //redirige al chat
                 header("Location: chat.php");
                 exit();
             } else {
@@ -60,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="login-container">
     <h2>Crear cuenta</h2>
     <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <p style="color:red;"><?= ($error) ?></p>
     <?php endif; ?>
 
     <form action="registro.php" method="post">

@@ -1,85 +1,75 @@
-// Espera a que el DOM esté completamente cargado antes de ejecutar el código
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    cargarHistorial(); //llama la funcion que mostrara el historial
-    // Función que obtiene el historial
+    const chatLog = $("#chat-log"); //variable que contiene el chat
+
+    //función para hacer scroll hasta el final
+    function scrollAlFinal() {
+        chatLog.scrollTop(chatLog.prop("scrollHeight"));//define la posicion actual
+    }
+
+    //función que obtiene y muestra el historial
     function cargarHistorial() {
-        fetch('obtener_historial.php') //realiza un GET al archivo
+        fetch('obtener_historial.php')//obtenemos el historial a traves del archivo
             .then(response => {
-                // Si la respuesta no es exitosa, lanza un error
-                if (!response.ok) throw new Error("Error al obtener el historial");
-                return response.json(); // Convierte la respuesta en formato JSON
+                if (!response.ok) throw new Error("Error al obtener el historial");//si hubo error muestra un mensaje
+                return response.json();//convierte la respuesta en js
             })
-            .then(data => {
-                const chatLog = document.getElementById("chat-log"); // Obtiene el contenedor del chat
-                chatLog.innerHTML = ""; // Limpia el contenido anterior
+            .then(data => {//array con el historial
+                chatLog.html(""); //limpia el chat
 
-                // Recorre cada mensaje recibido y lo muestra en el chat
-                data.forEach(mensaje => {
-                    const burbujaUser = document.createElement("div"); //crea burbuja del usuario
-                    burbujaUser.className = "burbuja user"; //clase css para la burbuja
-                    burbujaUser.innerHTML = mensaje.pregunta; //inserta la pregunta
-
-                    const burbujaIA = document.createElement("div");
-                    burbujaIA.className = "burbuja IA";
-                    burbujaIA.innerHTML = mensaje.respuesta;
-
-                    chatLog.appendChild(burbujaUser); // Agrega la burbuja del usuario al chat
-                    chatLog.appendChild(burbujaIA); // Agrega la burbuja de la IA al chat
+                data.forEach(mensaje => {//recorre cada mensaje
+                    chatLog.append(`<div class="burbuja user">${mensaje.pregunta}</div>`);//agrega la burbuja del usuario con su estilo y mensaje
+                    chatLog.append(`<div class="burbuja IA">${mensaje.respuesta}</div>`);//y aqui la del bot
                 });
+
+                scrollAlFinal(); //Hace scroll al final del historial
             })
-            .catch(error => {
-                // Muestra error si algo falla
-                console.error("Error:", error);
+            .catch(error => {//si falla
+                console.error("Error:", error);//muestra el error
             });
     }
 
-    // Cuando el DOM está listo, ejecuta el bloque jQuery
-    $(function () {
-        const chatLog = $("#chat-log"); // Selecciona el contenedor del chat
+    cargarHistorial(); //llama la funcion del historial
 
-        // Configura el autocompletado para el input con id 'pregunta'
-        $("#pregunta").autocomplete({
-            source: function (request, response) {
-                // Realiza una petición AJAX a 'sugerencias.php' con el término ingresado
-                $.ajax({
-                    url: "sugerencias.php",
-                    dataType: "json",
-                    data: { term: request.term }, // Envía el término de búsqueda
-                    success: function (data) {
-                        response(data); // Devuelve las sugerencias al autocompletado
-                    }
-                });
-            },
-            minLength: 2 // Mínimo de 2 caracteres antes de mostrar sugerencias
-        });
-
-        // Maneja el envío del formulario de pregunta
-        $("#formulario").submit(function (e) {
-            e.preventDefault(); // Evita que se recargue la página
-
-            const mensaje = $("#pregunta").val().trim(); // Obtiene y limpia el mensaje
-            if (mensaje === "") return; // Si está vacío, no hace nada
-
-            $("#pregunta").autocomplete("close"); // Cierra el menú de sugerencias
-
-            // Muestra el mensaje del usuario en el chat
-            chatLog.append(`<div class="burbuja user">${mensaje}</div>`);
-
-            // Envía la pregunta a 'consultas.php' mediante AJAX
+    //autocompletado para el input
+    $("#pregunta").autocomplete({
+        source: function (request, response) {//funcion que toma lo que el usuario escribe y lo muestra
             $.ajax({
-                type: "POST",
-                url: "consultas.php",
-                data: { pregunta: mensaje }, // Envía la pregunta como parámetro
-                success: function (respuesta) {
-                    // Muestra la respuesta de la IA en el chat
-                    chatLog.append(`<div class="burbuja IA">${respuesta}</div>`);
+                url: "sugerencias.php",//pide el archivo
+                dataType: "json",//en js
+                data: { term: request.term },//envia el texto del usuario
+                success: function (data) {//recibe los datos
+                    response(data);//la muestra
                 }
             });
-            $("#pregunta").val(""); // Limpia el campo de entrada
+        },
+        minLength: 3//minimo 3 letras para que aparezca
+    });
+
+    //manejo del envío del formulario
+    $("#formulario").submit(function (e) {
+        e.preventDefault();//evita el manejo normal
+
+        const mensaje = $("#pregunta").val().trim();//variable con el texto del usuario sin espacion
+        if (mensaje === "") return;//si no envia nada no pasa nada
+
+        $("#pregunta").autocomplete("close");//cierra el autocompletado
+
+        chatLog.append(`<div class="burbuja user">${mensaje}</div>`);//muestra el mensaje del usuario
+        scrollAlFinal(); //baja hasta el mensaje del usuario
+
+        // Enviar pregunta al chatbot
+        $.ajax({
+            type: "POST",//metodo post
+            url: "consultas.php",//a este archivo
+            data: { pregunta: mensaje },//manda la consulta
+            success: function (respuesta) {//funcion que devuelve la respuesta
+                chatLog.append(`<div class="burbuja IA">${respuesta}</div>`);//agrega la borbuja con la respuesta
+                scrollAlFinal(); //baja a la respuesta
+            }
         });
+
+        $("#pregunta").val(""); //limpia el input
     });
 });
-function scrollToBottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-      }

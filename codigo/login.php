@@ -13,18 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $clave   = trim($_POST['clave'] ?? '');
 
     if (!empty($usuario) && !empty($clave)) {
-        // Preparamos consulta segura
+        //selecciona aal usuario en la bd
         $stmt = $connPHP->prepare("SELECT id_usuario, nombre, contraseña FROM usuarios WHERE nombre = ?");
         $stmt->bind_param("s", $usuario);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($row = $result->fetch_assoc()) {
-            // Verificar contraseña
-            if (password_verify($clave, $row['contraseña'])) {
-                $_SESSION['usuario'] = $row['nombre'];
+            //Verificar contraseña
+            if (password_verify($clave, $row['contraseña'])) {//si es la contraseña
+                $_SESSION['usuario'] = $row['nombre'];//variables de sesion
                 $_SESSION['id_usuario'] = $row['id_usuario'];
-                header("Location: chat.php");
+                header("Location: chat.php");//redirige
                 exit();
             } else {
                 $error = "Contraseña incorrecta";

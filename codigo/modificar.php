@@ -11,8 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = ($_POST['id_consulta']);//variable con id
 
         if (isset($_POST["respuesta"]) && isset($_POST["pregunta"])) {//si recibio respuesta y pregunta
-            $nueva_respuesta = $_POST["respuesta"];
-            $nueva_pregunta = $_POST["pregunta"];
+            // convertir saltos de línea a <br> antes de guardar
+            $nueva_respuesta = str_replace("\n", "<br>", $_POST["respuesta"]);
+            $nueva_pregunta = str_replace("\n", "<br>", $_POST["pregunta"]);
 
             $sql_update = "UPDATE consultas SET titulo = ?, respuesta = ?, preg_contestada = true WHERE id_consulta = ?";
             $stmt = $connPHP->prepare($sql_update);
@@ -31,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultado->num_rows > 0) {
             $fila = $resultado->fetch_assoc();
-            $pregunta = $fila["titulo"];
-            $respuesta = $fila["respuesta"];
+            // convertir <br> a saltos de línea para mostrar en textarea
+            $pregunta = str_replace(['<br>', '<br />'], "\n", $fila["titulo"]);
+            $respuesta = str_replace(['<br>', '<br />'], "\n", $fila["respuesta"]);
         } else {
             echo "Consulta no encontrada.";
             exit;
@@ -52,8 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows > 0) {
         $fila = $resultado->fetch_assoc();
-        $pregunta = $fila["titulo"];
-        $respuesta = $fila["respuesta"];
+        // convertir <br> a saltos de línea para mostrar en textarea
+        $pregunta = str_replace(['<br>', '<br />'], "\n", $fila["titulo"]);
+        $respuesta = str_replace(['<br>', '<br />'], "\n", $fila["respuesta"]);
     } else {
         echo "Consulta no encontrada.";
         exit;

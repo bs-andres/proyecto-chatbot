@@ -1,17 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['ya_entro'])) {//si no inicio sesion
-    $pregunta = 'menu';//agregamenu al input
-    $_SESSION['ya_entro'] = true;
+if (!empty($_GET['titulo'])) { //si llego el get
+    $pregunta = $_GET['titulo']; //lo agrega pone en el input
 } else {
-    if (!empty($_GET['titulo'])) {//recibe get de otro lado
-        $pregunta = $_GET['titulo'];//lo muestra
-    } else {
-        $pregunta = '';
-    }
+    $pregunta = ''; //si no, queda vacío
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,6 +22,7 @@ if (!isset($_SESSION['ya_entro'])) {//si no inicio sesion
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/diseño.css">
 </head>
+
 <style>
   .bienvenido {
     display: block;        /* Hace que cada línea esté en bloque */
@@ -39,31 +37,30 @@ if (!isset($_SESSION['ya_entro'])) {//si no inicio sesion
     font-weight: bold;     /* Nombre en negrita */
   }
 </style>
+
 <body>
     <!--  Encabezado fijo con logo y botón de menú -->
     <div class="container-fluid d-flex align-items-center">
-        <a class="navbar-brand" href="" data-bs-toggle="offcanvas" data-bs-target="#menu">
-            <span style="font-size: 35px; position: fixed; top:30px;">☰</span>
+        <a class="navbar-brand" href="#" data-bs-toggle="offcanvas" data-bs-target="#menu">
+            <span style="font-size: 35px; position: sticky; top:30px;">☰</span>
         </a>
         <a href="info.html">
-            <img src="../otros/leandal.png" alt="logo" style="width:110px; margin-left:50px;">
+            <img src="../otros/leandal.png" alt="logo" style="width:110px; margin-left:10px;">
         </a>
+
         <div style="margin-left:auto;">
-            <?php if (isset($_SESSION['usuario'])): ?><!--  si inicio sesion -->
+            <?php if (isset($_SESSION['usuario'])): ?><!--  si inició sesión -->
                 <a href="logout.php" class="btn-cerrar">Cerrar Sesión</a>
-                <a href="refrescar.php" class="btn" title="Refrescar chat" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px; mb-2">
-                    <img src="../otros/refrescar.png"style="height:24px;width: 24px;">
-                </a>
             <?php else: ?>
                 <a href="login.php" class="btn-inicio">Iniciar Sesión</a>
-                <a href="refrescar.php" class="btn" title="Refrescar chat" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px; mb-2">
-                    <img src="../otros/refrescar.png"style="height:24px;width: 24px;">
-                </a>
             <?php endif; ?>
+            <a href="refrescar.php" class="btn" title="Refrescar chat" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px;">
+                <img src="../otros/refrescar.png" style="height:24px;width: 24px;">
+            </a>
         </div>
     </div>
 
-    <!-- Menú lateral -->
+    <!-- menú -->
     <div class="offcanvas offcanvas-start" id="menu" style="--bs-offcanvas-width: 250px;">
         <div class="offcanvas-body">
             <?php if (isset($_SESSION['usuario'])): ?>
@@ -74,41 +71,48 @@ if (!isset($_SESSION['ya_entro'])) {//si no inicio sesion
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                 </div>
+
                 <?php if ($_SESSION['usuario'] === 'admin'): ?>
-                    <!-- Si es el admin tiene botones especiales -->
                     <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
                     <a href="preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas sin responder</a><br>
                     <a href="todas_preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Todas las preguntas</a><br>
                 <?php else: ?>
-                    <!-- Si no es admin, mostrar otro contenido -->
-                    <a href="test.html" style="width: 165px;" class="btn btn-normal mb-2">test vocacional</a><br>
                     <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
                     <a class="btn btn-normal mb-2" style="width: 165px;" data-bs-toggle="collapse" href="#vermapas" role="button" aria-expanded="false" aria-controls="vermapas">
                         Mapa de la Escuela
                     </a>
-                    <div class="collapse mt-2" id="vermapas">
+                     <div class="collapse mt-2" id="vermapas">
                         <div class="d-grid gap-2">
-                            <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa">Mapa Planta Baja</a>
-                            <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa">Mapa 1° Piso</a>
-                            <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa">Mapa 2° Piso</a>
+                            <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa Planta Baja</a>
+                            <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 1° Piso</a>
+                            <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 2° Piso</a>
                         </div>
                     </div>
                 <?php endif; ?>
             <?php else: ?>
+                <script>
+                    //mensaje de bienvenida
+                    document.addEventListener("DOMContentLoaded", function() {
+                            const chatLog = document.getElementById("chat-log");
+                            const burbujaIA = document.createElement("div");
+                            burbujaIA.className = "burbuja IA";
+                            burbujaIA.innerHTML = "¡Bienvenido a leandal!, presiona 1 para ver el menu";
+                            chatLog.appendChild(burbujaIA);
+                        });
+                </script>
                 <div class="offcanvas-header">
                     <h1 class="offcanvas-title">Menú</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                 </div>
-                <!-- Si no ha iniciado sesión, mostrar opciones de login -->
                 <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
                 <a class="btn btn-normal mb-2" style="width: 165px;" data-bs-toggle="collapse" href="#vermapas" role="button" aria-expanded="false" aria-controls="vermapas">
-                        Mapa de la Escuela
-                    </a>
-                    <div class="collapse mt-2" id="vermapas">
+                    Mapa de la Escuela
+                </a>
+                 <div class="collapse mt-2" id="vermapas">
                         <div class="d-grid gap-2">
-                            <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa">Mapa Planta Baja</a>
-                            <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa">Mapa 1° Piso</a>
-                            <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa">Mapa 2° Piso</a>
+                            <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa Planta Baja</a>
+                            <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 1° Piso</a>
+                            <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 2° Piso</a>
                         </div>
                     </div>
             <?php endif; ?>
@@ -116,31 +120,56 @@ if (!isset($_SESSION['ya_entro'])) {//si no inicio sesion
     </div>
 
     <h3 style="color:white; text-align:center;">Leandal</h3>
+
+    <div class="chat-container">
         <div class="chat-log" id="chat-log"></div><!--  el chat -->
-        <form id="formulario" class="d-flex justify-content-end mt-3" action="consultas.php" method="POST">
-            <button type="button" id="btn-arriba" onclick="scrollToTop()" class="btn" style="display:none; background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px;">
-                <img src="../otros/subir.png" style="height:24px;width:24px;">
+
+        <form id="formulario" class="d-flex justify-content-end mt-3" action="guardar_mensaje.php" method="POST">
+            <!-- Botones de scroll -->
+            <button id="btn-abajo" class="btn" onclick="scrollToBottom()" style="display:none; background-color: rgb(64, 224, 208); border-radius:30px; font-size: 15px;">
+                <img src="../otros/bajar.png" style="height:14px; width:14px;">
             </button>
-            <input type="text" id="pregunta" class="input-barra-derecha" name="mensaje" 
-                placeholder="¿que quieres saber?" value="<?php echo $pregunta; ?>">
+            <button type="button" id="btn-arriba" onclick="scrollToTop()" class="btn" style="display:none; background-color: rgb(64, 224, 208); border-radius:30px; font-size: 15px;">
+                <img src="../otros/subir.png" style="height:14px; width:14px;">
+            </button>
+
+            <!-- Barra de entrada -->
+            <input type="text" id="pregunta" class="input-barra-derecha" name="mensaje" placeholder="¿que quieres saber?" value="<?php echo $pregunta; ?>">
             <button type="submit" class="btn" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px;">
-                <img src="../otros/mandar.png" style="height:24px;width:24px;">
+                <img src="../otros/mandar.png" style="height:24px; width:24px;">
             </button>
         </form>
     </div>
 
     <script>
-        //scroll para Volver Arriba
         window.onscroll = function() {
-            var btn = document.getElementById("btn-arriba");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btn.style.display = "block";
+            const btnArriba = document.getElementById("btn-arriba");
+            const btnAbajo = document.getElementById("btn-abajo");
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+            const windowHeight = window.innerHeight;
+
+            if (scrollTop > 20) {
+                btnArriba.style.display = "block"; //lo muestra
             } else {
-                btn.style.display = "none";
+                btnArriba.style.display = "none"; //no lo muestra
+            }
+
+
+            if (scrollTop + windowHeight < scrollHeight - 15) {
+                btnAbajo.style.display = "block"; //lo muestra
+            } else {
+                btnAbajo.style.display = "none";  //no lo muestra
             }
         };
+
+        // Funciones de desplazamiento
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
     <script src="js/java.js"></script>

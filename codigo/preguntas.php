@@ -1,3 +1,4 @@
+
 <?php
 include("conexion.php");
 
@@ -87,7 +88,7 @@ $resultado = $connPHP->query($sql);
             echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='2'>No hay preguntas sin responder.</td></tr>";//si no hay nada muestra mensaje
+            echo "<tr><td colspan='3'>No hay preguntas sin responder.</td></tr>";//si no hay nada muestra mensaje
         }
         $connPHP->close();
         ?>

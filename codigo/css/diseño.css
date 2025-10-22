@@ -35,7 +35,7 @@ body {
     margin: 10px 0;
     padding: 10px 15px;
     border-radius: 15px;
-    max-width: 75%;
+    max-width: 60%;
     word-wrap: break-word;
 }
 
@@ -130,12 +130,20 @@ body {
     background-color: rgb(64, 224, 208);
     border-radius: 15px;
     border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(64, 224, 208, 0.5);
 }
+
+#formulario .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(64, 224, 208, 0.7);
+}
+
 .offcanvas {
     background-color: rgba(107, 205, 208, 0.65) !important;
-    /* más transparente */
     backdrop-filter: blur(100px);
-    /* efecto vidrio */
 }
 
 .offcanvas-header,
@@ -145,7 +153,6 @@ body {
 
 .offcanvas .btn-normal {
     background: linear-gradient(135deg, #11c0c5, #0a8d8f);
-    /* degradado turquesa */
     color: white !important;
     border: none;
     border-radius: 12px;
@@ -165,9 +172,9 @@ body {
     transform: translateY(1px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 .offcanvas .btn-mapa {
     background: linear-gradient(135deg, #9b59b6, #6c3483);
-    /* degradado violeta */
     color: white !important;
     border: none;
     border-radius: 12px;
@@ -186,4 +193,16 @@ body {
 .offcanvas .btn-mapa:active {
     transform: translateY(1px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    #formulario {
+        right: 10px;
+        bottom: 10px;
+    }
+    
+    .input-barra-derecha {
+        width: 250px;
+    }
 }
