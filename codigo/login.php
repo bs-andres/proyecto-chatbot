@@ -2,7 +2,7 @@
 session_start();
 include("conexion.php");
 
-// Si ya está logueado lo mando al chat
+//si ya está logueado lo mando al chat
 if (isset($_SESSION['usuario'])) {
     header("Location: chat.php");
     exit();

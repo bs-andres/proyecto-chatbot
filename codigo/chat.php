@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 if (!empty($_GET['titulo'])) { //si llego el get
@@ -7,7 +7,6 @@ if (!empty($_GET['titulo'])) { //si llego el get
     $pregunta = ''; //si no, queda vacío
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -25,16 +24,16 @@ if (!empty($_GET['titulo'])) { //si llego el get
 
 <style>
   .bienvenido {
-    display: block;        /* Hace que cada línea esté en bloque */
-    font-size: 24px;       /* Tamaño más grande para "Bienvenido" */
+    display: block;
+    font-size: 24px;
     color: white;
-    font-weight: normal;   /* No tan pesado para "Bienvenido" */
+    font-weight: normal;
   }
   .usuario {
-    display: block;        /* Nombre en su propia línea */
-    font-size: 28px;       /* Más grande que "Bienvenido" */
+    display: block;
+    font-size: 28px;
     color: white;
-    font-weight: bold;     /* Nombre en negrita */
+    font-weight: bold;
   }
 </style>
 
@@ -49,7 +48,7 @@ if (!empty($_GET['titulo'])) { //si llego el get
         </a>
 
         <div style="margin-left:auto;">
-            <?php if (isset($_SESSION['usuario'])): ?><!--  si inició sesión -->
+            <?php if (isset($_SESSION['usuario'])): ?>
                 <a href="logout.php" class="btn-cerrar">Cerrar Sesión</a>
             <?php else: ?>
                 <a href="login.php" class="btn-inicio">Iniciar Sesión</a>
@@ -62,26 +61,58 @@ if (!empty($_GET['titulo'])) { //si llego el get
 
     <!-- menú -->
     <div class="offcanvas offcanvas-start" id="menu" style="--bs-offcanvas-width: 250px;">
-        <div class="offcanvas-body">
-            <?php if (isset($_SESSION['usuario'])): ?>
-                <div class="offcanvas-header">
-                    <span>
-                        <span class="bienvenido">Bienvenido</span>
-                        <span class="usuario"><?php echo ($_SESSION['usuario']); ?></span>
-                    </span>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
+            <div>
+                <?php if (isset($_SESSION['usuario'])): ?>
+                    <div class="offcanvas-header">
+                        <span>
+                            <span class="bienvenido">Bienvenido</span>
+                            <span class="usuario">
+                            <?php echo mb_convert_case($_SESSION['usuario'], MB_CASE_TITLE, "UTF-8"); ?>
+                            </span>
+                        </span>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
 
-                <?php if ($_SESSION['usuario'] === 'admin'): ?>
-                    <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
-                    <a href="preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas sin responder</a><br>
-                    <a href="todas_preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Todas las preguntas</a><br>
+                    <?php if ($_SESSION['usuario'] === 'admin'): ?>
+                        <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas frecuentes</a><br>
+                        <a href="preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas sin responder</a><br>
+                        <a href="todas_preguntas.php" style="width: 165px;" class="btn btn-normal mb-2">Todas las preguntas</a><br>
+                        <a href="pagina_comunidad.php" style="width: 165px;" class="btn btn-normal mb-2">Rincon de sugerencias</a><br>
+                        <a href="https://drive.google.com/file/d/1o2y1ycvtlgGGoGFlnqm192YEtJNEWh8H/view?usp=sharing" style="width: 165px;" target="_blank" class="btn btn-normal mb-2">Ayuda</a><br>
+                    <?php else: ?>
+                        <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas frecuentes</a><br>
+                        <a href="pagina_comunidad.php" style="width: 165px;" class="btn btn-normal mb-2">Rincon de sugerencias</a><br>
+                        <a class="btn btn-normal mb-2" style="width: 165px;" data-bs-toggle="collapse" href="#vermapas" role="button" aria-expanded="false" aria-controls="vermapas">
+                            Mapa de la Escuela
+                        </a>
+                        <div class="collapse mt-2" id="vermapas">
+                            <div class="d-grid gap-2">
+                                <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa Planta Baja</a>
+                                <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 1° Piso</a>
+                                <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 2° Piso</a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const chatLog = document.getElementById("chat-log");
+                            const burbujaIA = document.createElement("div");
+                            burbujaIA.className = "burbuja IA";
+                            burbujaIA.innerHTML = "¡Bienvenido a leandal!, presiona 1 para ver el menu";
+                            chatLog.appendChild(burbujaIA);
+                        });
+                    </script>
+                    <div class="offcanvas-header">
+                        <h1 class="offcanvas-title">Menú</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">Preguntas frecuentes</a><br>
                     <a class="btn btn-normal mb-2" style="width: 165px;" data-bs-toggle="collapse" href="#vermapas" role="button" aria-expanded="false" aria-controls="vermapas">
                         Mapa de la Escuela
                     </a>
-                     <div class="collapse mt-2" id="vermapas">
+                    <div class="collapse mt-2" id="vermapas">
                         <div class="d-grid gap-2">
                             <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa Planta Baja</a>
                             <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 1° Piso</a>
@@ -89,32 +120,11 @@ if (!empty($_GET['titulo'])) { //si llego el get
                         </div>
                     </div>
                 <?php endif; ?>
-            <?php else: ?>
-                <script>
-                    //mensaje de bienvenida
-                    document.addEventListener("DOMContentLoaded", function() {
-                            const chatLog = document.getElementById("chat-log");
-                            const burbujaIA = document.createElement("div");
-                            burbujaIA.className = "burbuja IA";
-                            burbujaIA.innerHTML = "¡Bienvenido a leandal!, presiona 1 para ver el menu";
-                            chatLog.appendChild(burbujaIA);
-                        });
-                </script>
-                <div class="offcanvas-header">
-                    <h1 class="offcanvas-title">Menú</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <a href="preg_frec.php" style="width: 165px;" class="btn btn-normal mb-2">preguntas frecuentes</a><br>
-                <a class="btn btn-normal mb-2" style="width: 165px;" data-bs-toggle="collapse" href="#vermapas" role="button" aria-expanded="false" aria-controls="vermapas">
-                    Mapa de la Escuela
-                </a>
-                 <div class="collapse mt-2" id="vermapas">
-                        <div class="d-grid gap-2">
-                            <a href="https://drive.google.com/file/d/1sg12kHxCaNakFrK5yB79Yo7mjP-HCgqG/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa Planta Baja</a>
-                            <a href="https://drive.google.com/file/d/1zwvS-26GWQ0ztwFUbnb7r8eKDUA9zmLg/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 1° Piso</a>
-                            <a href="https://drive.google.com/file/d/1IZE3ustPUGgZFRSkuv-185QyPJYVUd3I/view?usp=sharing" class="btn btn-mapa" target="_blank" rel="noopener noreferrer">Mapa 2° Piso</a>
-                        </div>
-                    </div>
+            </div>
+
+            <!-- 🔻 Botón de borrar cuenta abajo del todo -->
+            <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== 'admin'): ?>
+                <a href="borrar_cuenta.php" class="btn btn-danger mt-auto" style="width:165px;" onclick="return confirm('⚠️ ¿Seguro que deseas borrar tu cuenta?');">Borrar cuenta</a>
             <?php endif; ?>
         </div>
     </div>
@@ -122,10 +132,9 @@ if (!empty($_GET['titulo'])) { //si llego el get
     <h3 style="color:white; text-align:center;">Leandal</h3>
 
     <div class="chat-container">
-        <div class="chat-log" id="chat-log"></div><!--  el chat -->
+        <div class="chat-log" id="chat-log"></div>
 
         <form id="formulario" class="d-flex justify-content-end mt-3" action="guardar_mensaje.php" method="POST">
-            <!-- Botones de scroll -->
             <button id="btn-abajo" class="btn" onclick="scrollToBottom()" style="display:none; background-color: rgb(64, 224, 208); border-radius:30px; font-size: 15px;">
                 <img src="../otros/bajar.png" style="height:14px; width:14px;">
             </button>
@@ -133,45 +142,12 @@ if (!empty($_GET['titulo'])) { //si llego el get
                 <img src="../otros/subir.png" style="height:14px; width:14px;">
             </button>
 
-            <!-- Barra de entrada -->
-            <input type="text" id="pregunta" class="input-barra-derecha" name="mensaje" placeholder="¿que quieres saber?" value="<?php echo $pregunta; ?>">
+            <input type="text" id="pregunta" class="input-barra-derecha" name="mensaje" placeholder="¿que quieres saber?" value="<?php echo $pregunta; ?>" autocomplete="off">
             <button type="submit" class="btn" style="background-color: rgb(64, 224, 208); border-radius:15px; font-size: 20px;">
                 <img src="../otros/mandar.png" style="height:24px; width:24px;">
             </button>
         </form>
     </div>
-
-    <script>
-        window.onscroll = function() {
-            const btnArriba = document.getElementById("btn-arriba");
-            const btnAbajo = document.getElementById("btn-abajo");
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-            const windowHeight = window.innerHeight;
-
-            if (scrollTop > 20) {
-                btnArriba.style.display = "block"; //lo muestra
-            } else {
-                btnArriba.style.display = "none"; //no lo muestra
-            }
-
-
-            if (scrollTop + windowHeight < scrollHeight - 15) {
-                btnAbajo.style.display = "block"; //lo muestra
-            } else {
-                btnAbajo.style.display = "none";  //no lo muestra
-            }
-        };
-
-        // Funciones de desplazamiento
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function scrollToBottom() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-    </script>
     <script src="js/java.js"></script>
 </body>
 </html>

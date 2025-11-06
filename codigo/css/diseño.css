@@ -26,11 +26,10 @@ body {
     margin: 10px auto;
     border-radius: 10px;
     padding: 20px;
-    padding-bottom: 120px; /* Espacio para la barra fija */
+    padding-bottom: 120px;
     scroll-behavior: smooth;
 }
 
-/* diseño burbuja */
 .burbuja {
     margin: 10px 0;
     padding: 10px 15px;
@@ -39,7 +38,6 @@ body {
     word-wrap: break-word;
 }
 
-/* burbuja usuario */
 .user {
     background-color: #d1e7dd;
     align-self: flex-end;
@@ -47,7 +45,6 @@ body {
     margin-left: auto;
 }
 
-/* burbuja IA */
 .IA {
     background-color: #e2e3e5;
     align-self: flex-start;
@@ -61,7 +58,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Botones de sesión */
 .btn-inicio,
 .btn-cerrar {
     background-color: #8c52ff !important;
@@ -84,7 +80,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Contenedor del formulario fijo */
 #formulario {
     position: fixed;
     bottom: 20px;
@@ -105,14 +100,11 @@ body {
     max-height: 150px;
     padding: 10px 15px;
     font-size: 16px;
-    text-decoration: none;
     border: 2px solid #0a8d8f;
     outline: none;
     background-color: #11c0c5;
     color: white;
     box-shadow: 0 2px 6px rgba(17, 192, 197, 0.7);
-    resize: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     border-radius: 20px;
 }
 
@@ -125,7 +117,6 @@ body {
     box-shadow: 0 2px 8px rgba(10, 141, 143, 0.9);
 }
 
-/* Botón de enviar */
 #formulario .btn {
     background-color: rgb(64, 224, 208);
     border-radius: 15px;
@@ -168,11 +159,6 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-.offcanvas .btn-normal:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 .offcanvas .btn-mapa {
     background: linear-gradient(135deg, #9b59b6, #6c3483);
     color: white !important;
@@ -181,27 +167,18 @@ body {
     font-size: 16px;
     padding: 10px 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
-    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .offcanvas .btn-mapa:hover {
     background: linear-gradient(135deg, #b07acc, #8e44ad);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-.offcanvas .btn-mapa:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
     #formulario {
         right: 10px;
         bottom: 10px;
     }
-    
     .input-barra-derecha {
         width: 250px;
     }

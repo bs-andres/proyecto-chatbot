@@ -75,6 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="nombre" placeholder="Usuario" required><br>
         <input type="password" name="clave" placeholder="Contraseña" required><br>
         <button type="submit" class="btn-inicio">Registrarse</button>
-        <button type="button" class="btn-inicio" onclick="window.location.href='chat.php'">Volver</button>
+        <button type="button" class="btn-inicio" onclick="window.location.href='login.php'">Volver</button>
     </form>
 </div>

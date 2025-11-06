@@ -3,7 +3,7 @@
 include("conexion.php");
 
 //sentencia sql para obtener las preguntas no contestadas
-$sql = "SELECT id_consulta, titulo FROM consultas WHERE preg_contestada = FALSE";//sql que agarra id y su pregunta donde la pregunta no haya sido contestada
+$sql = "SELECT id_consulta, titulo FROM consultas WHERE preg_contestada = FALSE";//agarra el id y la pregunta sin respuesta
 $resultado = $connPHP->query($sql);
 ?>
 

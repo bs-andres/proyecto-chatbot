@@ -2,8 +2,8 @@
 session_start();
 include("conexion.php");
 
-// Consulta para obtener las 7 preguntas con mayor contador
-$sql = "SELECT id_consulta, titulo, pregunta FROM consultas WHERE preg_contestada = true ORDER BY contador DESC LIMIT 7";
+//consulta para obtener las 7 preguntas con mayor contador que no sean del menu
+$sql = "SELECT id_consulta, titulo, pregunta FROM consultas WHERE preg_contestada = true AND pregunta > 5 ORDER BY contador DESC LIMIT 7";
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -44,7 +44,6 @@ $resultado = $connPHP->query($sql);
             <thead>
                 <tr>
                     <th>Pregunta</th>
-                    <th>Consultar</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +53,6 @@ $resultado = $connPHP->query($sql);
                         $pregunta = ($fila['titulo']);
                         echo "<tr>";
                         echo "<td>" . ($fila['titulo']) . "</td>";
-                        echo "<td>
-                            <a href='chat.php?titulo=" . urlencode($fila['pregunta']) . "' class='btn-inicio'>Consultar</a>
-                        </td>";
                         echo "</tr>";
                     }
                 } else {
