@@ -339,6 +339,5 @@ $resultado = $connPHP->query($sql);
         });
     });
 </script>
-
 </body>
 </html>

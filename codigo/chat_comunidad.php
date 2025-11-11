@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat Comunidad</title>
+<title>Rincon de sugerencias</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -40,17 +40,11 @@
         cursor: pointer;
         opacity: 1 !important;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        transition: background 0.3s ease, transform 0.2s ease;
         text-decoration: none;
         display: inline-block;
         white-space: nowrap;
         margin-left: 5px;
         min-height: 38px;
-    }
-    
-    .btn-header:hover {
-        background-color: #6e3fcf !important;
-        transform: translateY(-2px);
     }
     
     .header-buttons {
@@ -94,9 +88,8 @@
         .chat-title { font-size: 1.2rem; }
         .btn-header { 
             font-size: 13px; 
-            padding: 5px 7px;
-            min-height: 36px;
-            white-space: nowrap;
+            padding: 5px 8px;
+            min-height: 34px;
         }
     }
     
@@ -105,13 +98,12 @@
         .header-container { padding: 8px 10px; }
         .logo-back { width: 40px; }
         .logo-main { width: 80px; margin-left: 5px; }
+        .chat-title { font-size: 1.1rem; }
         .btn-header { 
             font-size: 12px; 
-            padding: 4px 6px;
-            min-height: 34px;
-            white-space: nowrap;
+            padding: 4px 7px;
+            min-height: 32px;
         }
-        .chat-title { font-size: 1.1rem; }
         .header-buttons { 
             gap: 3px;
         }
@@ -139,13 +131,12 @@
     @media (max-width: 399px) {
         .logo-back { width: 35px; }
         .logo-main { width: 70px; margin-left: 5px; }
+        .chat-title { font-size: 1rem; }
         .btn-header { 
             font-size: 11px; 
-            padding: 4px 5px;
-            min-height: 32px;
-            white-space: nowrap;
+            padding: 4px 6px;
+            min-height: 30px;
         }
-        .chat-title { font-size: 1rem; }
         .input-barra-derecha {
             font-size: 14px;
             padding: 6px;
@@ -159,14 +150,12 @@
     @media (max-width: 349px) {
         .logo-back { width: 30px; }
         .logo-main { width: 60px; }
+        .chat-title { font-size: 0.95rem; }
         .btn-header { 
             font-size: 10px; 
-            padding: 3px 4px; 
-            margin-left: 0px;
-            min-height: 30px;
-            white-space: nowrap;
+            padding: 3px 5px;
+            min-height: 28px;
         }
-        .chat-title { font-size: 0.95rem; }
         .input-barra-derecha {
             font-size: 13px;
             padding: 5px;
@@ -179,16 +168,6 @@
             gap: 2px;
         }
     }
-    
-    /* Mejora de accesibilidad táctil */
-    @media (hover: none) and (pointer: coarse) {
-        .btn-header,
-        button[type="submit"],
-        button[type="button"] {
-            min-height: 44px;
-            min-width: 44px;
-        }
-    }
 </style>
 </head>
 <body>
@@ -198,7 +177,7 @@
         <a href="chat.php">
             <img src="../otros/flecha.png" alt="Volver" class="logo-back">
         </a>
-        <a href="info.html">
+        <a>
             <img src="../otros/leandal.png" alt="Logo" class="logo-main">
         </a>
     </div>
@@ -215,23 +194,31 @@
     <div id="publicaciones" class="chat-log"><?php include("chat_comunidad_ajax.php"); ?></div>
 
     <!-- Formulario para publicar -->
-    <form id="formulario" class="d-flex justify-content-end mt-3">
-        <button id="btn-abajo" type="button" class="btn btn-scroll" onclick="scrollToBottom()" 
-            style="display:none; background-color: rgb(64, 224, 208); border-radius:30px; font-size:15px; margin-right:5px;">
-            <img src="../otros/bajar.png" alt="Bajar" style="height:14px; width:14px;">
-        </button>
+    <form id="formulario" class="d-flex align-items-center mt-3" style="gap:6px;">
 
-        <button id="btn-arriba" type="button" class="btn btn-scroll" onclick="scrollToTop()" 
-            style="display:none; background-color: rgb(64, 224, 208); border-radius:30px; font-size:15px; margin-right:5px;">
-            <img src="../otros/subir.png" alt="Subir" style="height:14px; width:14px;">
-        </button>
-        
-        <input type="text" id="mensaje" class="input-barra-derecha" name="mensaje" placeholder="¿Alguna opinión sobre la escuela?" autocomplete="off">
-        
-        <button class="btn" type="submit" style="background-color: rgb(64, 224, 208); border-radius:15px; min-height: 44px; min-width: 44px;">
-            <img src="../otros/mandar.png" alt="Enviar" style="height:24px; width:24px;">
-        </button>
-    </form>
+    <button id="btn-arriba" type="button" class="btn btn-scroll"
+        onclick="scrollToTop()"
+        style="background-color: rgb(64, 224, 208); border-radius:30px; font-size:15px; display:none;">
+        <img src="../otros/subir.png" alt="Subir" style="height:14px; width:14px;">
+    </button>
+
+    <button id="btn-abajo" type="button" class="btn btn-scroll"
+        onclick="scrollToBottom()"
+        style="background-color: rgb(64, 224, 208); border-radius:30px; font-size:15px; display:none;">
+        <img src="../otros/bajar.png" alt="Bajar" style="height:14px; width:14px;">
+    </button>
+
+    <input type="text" id="mensaje" class="input-barra-derecha"
+        name="mensaje" placeholder="¿Alguna opinión sobre la escuela?" autocomplete="off"
+        style="flex:1;">
+
+    <button class="btn" type="submit"
+        style="background-color: rgb(64, 224, 208); border-radius:15px; min-height:44px; min-width:44px;">
+        <img src="../otros/mandar.png" alt="Enviar"
+            style="height:24px; width:24px;">
+    </button>
+</form>
+
 </div>
 
 <script>

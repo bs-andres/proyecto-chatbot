@@ -9,7 +9,7 @@ $respuesta   = trim($_POST['respuesta']);
 //validaciones básicas
 if ($id_consulta > 0 && !empty($respuesta) && !empty($titulo) && !empty($pregunta)) {
 
-    /* verifica si la pregunta ya existe*/
+    /*verifica si la pregunta ya existe*/
     $stmtCheck = $connPHP->prepare("SELECT id_consulta FROM consultas WHERE pregunta = ? AND id_consulta != ? LIMIT 1");
     $stmtCheck->bind_param("si", $pregunta, $id_consulta);
     $stmtCheck->execute();

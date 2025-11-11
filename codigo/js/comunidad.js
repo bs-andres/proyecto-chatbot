@@ -1,4 +1,4 @@
-// Mostrar botones según scroll
+//mostrar botones según scroll
 window.onscroll = function() {
     const btnArriba = document.getElementById("btn-arriba");
     const btnAbajo = document.getElementById("btn-abajo");
@@ -10,7 +10,7 @@ window.onscroll = function() {
     btnAbajo.style.display = (scrollTop + windowHeight < scrollHeight - 15) ? "block" : "none";
 };
 
-// Funciones de desplazamiento
+//funciones de desplazamiento
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -21,7 +21,7 @@ function scrollToBottom() {
 
 $(document).ready(function(){
 
-    // Enviar nuevo mensaje
+    //enviar nuevo mensaje
     $('#formulario').submit(function(e){
         e.preventDefault();
         var mensaje = $('#mensaje').val().trim();
@@ -33,7 +33,7 @@ $(document).ready(function(){
             data: {mensaje: mensaje},
             success: function(){
                 $('#mensaje').val('');
-                cargarPublicaciones(true); // ✅ hace scroll
+                cargarPublicaciones(true); //hace scroll
             }
         });
     });
@@ -46,7 +46,7 @@ $(document).ready(function(){
             method: 'POST',
             data: {like: id},
             success: function(){
-                cargarPublicaciones(false); // ❌ no hace scroll
+                cargarPublicaciones(false); //no hace scroll
             }
         });
     });
@@ -61,7 +61,7 @@ $(document).ready(function(){
             data: {id_publicacion: id},
             success: function(respuesta){
                 if(respuesta.trim() === 'ok'){
-                    cargarPublicaciones(false); // ✅ hace scroll
+                    cargarPublicaciones(false); //hace scroll
                 }
             },
             error: function(){
@@ -70,7 +70,7 @@ $(document).ready(function(){
         });
     });
 
-    // ✅ Cargar publicaciones con o sin scroll
+    //cargar publicaciones con o sin scroll
     function cargarPublicaciones(hacerScroll = true){
         $.ajax({
             url: 'chat_comunidad_ajax.php',
@@ -78,7 +78,7 @@ $(document).ready(function(){
             success: function(data){
                 $('#publicaciones').html(data);
 
-                // 🔽 Solo desplaza si corresponde
+                //solo desplaza si corresponde
                 if(hacerScroll){
                     $('html, body').animate({
                         scrollTop: $(document).height()

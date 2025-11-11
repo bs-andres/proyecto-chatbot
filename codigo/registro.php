@@ -11,8 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nombre) || empty($clave)) {
         $error = "Todos los campos son obligatorios.";
     } else {
-        //verifica si el nombre ya existe
-        $check_sql = "SELECT id_usuario FROM usuarios WHERE nombre = ?";
+        //pone la mayuscula primera
+        $nombre = mb_convert_case(mb_strtolower($nombre, 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+
+        //selecciona el id donde el nombre sea ese (pasado a minusculas)
+        $check_sql = "SELECT id_usuario FROM usuarios WHERE LOWER(nombre) = LOWER(?)";
         $stmt = $connPHP->prepare($check_sql);
         $stmt->bind_param("s", $nombre);
         $stmt->execute();
@@ -49,10 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error = "Error al registrar usuario: " . $stmt->error;
             }
         }
-
         $stmt->close();
     }
-
     $connPHP->close();
 }
 ?>
@@ -60,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

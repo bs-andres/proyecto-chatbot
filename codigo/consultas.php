@@ -2,41 +2,41 @@
 include("conexion.php");
 session_start();
 
-if (isset($_SESSION['id_usuario'])) {
+if (isset($_SESSION['id_usuario'])) {//verifica la sesion
     $id_usuario = $_SESSION['id_usuario'];
 } else {
     $id_usuario = null;
 }
 
 if (!isset($_SESSION['ultima_respuesta'])) {
-    $_SESSION['ultima_respuesta'] = "1"; // Inicializa con "1" como valor por defecto
+    $_SESSION['ultima_respuesta'] = "1"; //inicializa con 1 como valor default
 }
 if (!isset($_SESSION['en_test'])) {
-    $_SESSION['en_test'] = false; // Inicializa con "1" como valor por defecto
+    $_SESSION['en_test'] = false; //reinicia el test por si acaso
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
-    $pregunta = trim($_POST['pregunta']);
+    $pregunta = trim($_POST['pregunta']);//recibe la pregunta
 
-    //
+    //consultas validas siempre
     if (in_array(strtolower($pregunta), ["1", "hola", "menu","gracias","como estas","buenos dias","adios"])) {
         unset($_SESSION['ultima_respuesta']);
     }
 
-    // Mensaje para opciones de test no válidas
+    //mensaje para opciones de test no válidas
     if (in_array($pregunta, ["6", "7", "8", "9"]) && $_SESSION['en_test'] === false) {
         echo "Esta consulta es parte del test, presiona 🔹1 para ir al menú y empezarlo";
         exit;
     }
-    // Inicio del test
+    //inicio del test
     if ($pregunta === "5") {
-        // Extraer los números válidos del menú
+        //agarra los números válidos del menú
         $opciones_validas = [];
         if (preg_match_all('/(\d+)\s*🔹/u', $_SESSION['ultima_respuesta'], $matches)) {
             $opciones_validas = $matches[1]; // ['1','2','5', ...]
         }
 
-        // Verificar si 5 está dentro
+        //verificar si el 5 esta
         if ($pregunta === "5") {
             if (!in_array("5", $opciones_validas)) {
                 echo "Por favor, escribí una de las opciones mostradas o escribí 🔹1 para volver al menú.";
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
         exit;
     }
 
-    // Si está haciendo el test
+    //si está haciendo el test
     if (isset($_SESSION['en_test']) && $_SESSION['en_test'] === true) {
         $opcion = strtolower(trim($pregunta));
         $opciones_validas = ['a', 'b', 'c', 'd', 'e', 'f'];
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
         exit;
     }
 
-    //-----------------------------------VALIDACIÓN DE OPCIONES MOSTRADAS-----------------------------------//
+    //-----------------------------------validacion de opciones-----------------------------------//
     if (isset($_SESSION['ultima_respuesta'])) {
         $ultima_respuesta = $_SESSION['ultima_respuesta'];
         $ultima_respuesta = mb_convert_encoding($ultima_respuesta, 'UTF-8', 'auto');
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
             $opciones_validas[] = "1";
         }
 
-        // 🔹 Si el usuario escribe algo no válido, insertar en la BD solo si no existe
+        //si el usuario escribe algo no válido, insertar en la BD solo si no existe
         if (!empty($opciones_validas) && !in_array($pregunta, $opciones_validas) && $pregunta !== "1") {
             $stmt_check = $connPHP->prepare("SELECT id_consulta FROM consultas WHERE titulo = ?");
             $stmt_check->bind_param("s", $pregunta);
@@ -180,13 +180,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pregunta'])) {
             $res_check = $stmt_check->get_result();
             
             if ($res_check->num_rows === 0) {
-                $stmt_insert = $connPHP->prepare(
-                    "INSERT INTO consultas (pregunta, titulo, respuesta, contador, preg_contestada) 
-                     VALUES ('', ?, '', 1, false)"
-                );
+                $stmt_insert = $connPHP->prepare("INSERT INTO consultas (pregunta, titulo, respuesta, contador, preg_contestada) VALUES ('', ?, '', 1, false)");
                 $stmt_insert->bind_param("s", $pregunta);
                 $stmt_insert->execute();
                 $stmt_insert->close();
+
+                echo "¡Gracias por tu consulta!, por ahora no tengo una respuesta.";
+                exit;
             }
             $stmt_check->close();
 

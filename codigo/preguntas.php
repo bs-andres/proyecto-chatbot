@@ -3,7 +3,7 @@
 include("conexion.php");
 
 //sentencia sql para obtener las preguntas no contestadas
-$sql = "SELECT id_consulta, titulo FROM consultas WHERE preg_contestada = FALSE";//agarra el id y la pregunta sin respuesta
+$sql = "SELECT id_consulta, titulo FROM consultas WHERE preg_contestada = FALSE AND titulo REGEXP '[A-Za-z]'";//agarra el id y la pregunta sin respuesta
 $resultado = $connPHP->query($sql);
 ?>
 
@@ -14,7 +14,7 @@ $resultado = $connPHP->query($sql);
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/diseño.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas sin responder</title>
+    <title>Consultas sin Responder</title>
     <style>
         table { 
             width: 80%;

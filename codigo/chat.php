@@ -13,7 +13,7 @@ if (!empty($_GET['titulo'])) { //si llego el get
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leandal - Chat</title>
+    <title>Leandal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -43,7 +43,7 @@ if (!empty($_GET['titulo'])) { //si llego el get
         <a class="navbar-brand" href="#" data-bs-toggle="offcanvas" data-bs-target="#menu">
             <span style="font-size: 35px; position: sticky; top:30px;">☰</span>
         </a>
-        <a href="info.html">
+        <a>
             <img src="../otros/leandal.png" alt="logo" style="width:110px; margin-left:10px;">
         </a>
 
@@ -68,7 +68,7 @@ if (!empty($_GET['titulo'])) { //si llego el get
                         <span>
                             <span class="bienvenido">Bienvenido</span>
                             <span class="usuario">
-                            <?php echo mb_convert_case($_SESSION['usuario'], MB_CASE_TITLE, "UTF-8"); ?>
+                            <?php echo ($_SESSION['usuario']); ?>
                             </span>
                         </span>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
@@ -121,10 +121,8 @@ if (!empty($_GET['titulo'])) { //si llego el get
                     </div>
                 <?php endif; ?>
             </div>
-
-            <!-- 🔻 Botón de borrar cuenta abajo del todo -->
             <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario'] !== 'admin'): ?>
-                <a href="borrar_cuenta.php" class="btn btn-danger mt-auto" style="width:165px;" onclick="return confirm('⚠️ ¿Seguro que deseas borrar tu cuenta?');">Borrar cuenta</a>
+                <a href="borrar_cuenta.php" class="btn btn-danger mt-auto" style="width:165px;">Borrar cuenta</a>
             <?php endif; ?>
         </div>
     </div>

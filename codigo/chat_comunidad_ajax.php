@@ -5,7 +5,7 @@ session_start();
 $id_usuario = $_SESSION['id_usuario'];
 
 //lista de palabras inapropiadas
-$prohibidas = ["verga","puta", "puto", "mierda", "pendejo", "tonto", "gay", "pene", "boludo", "boluda", "forro", "forra", "pelotudo", "pelotuda", "choto", "chota"];
+$prohibidas = ["boludo", "pelotudo", "tarado", "idiota", "estúpido", "inútil", "imbécil", "forro", "salame", "gil", "boluda", "pelotuda", "tonto", "bobo", "nabo", "ganso", "cagón", "sorete", "choto", "puto", "puta", "mierda", "carajo", "la concha", "hijo de", "cornudo", "maricón", "pajero", "mogólico", "retardado", "negro", "grasa", "chupamedias", "chupapija", "orto", "culo", "garca", "trucho", "trolo", "pete", "jodete", "callate", "andate", "cagaste", "cagada", "rompé", "rompete", "rompiste", "rompepelotas", "rompehuevos", "hinchapelotas", "hincha", "pesado", "chanta", "ladrón", "ratero", "maldito", "desgraciado", "infeliz", "bastardo", "malnacido", "zorra", "zorrita", "idiota", "ridículo", "ridícula", "basura", "escoria", "pelmazo", "sopenco", "gilastrun", "imbécil", "trola", "guacho", "pendejo", "atrevido", "insolente", "agrandado", "cabeza", "wachiturro"];
 
 //censuara con ****
 function censurarTexto($texto, $prohibidas) {
